@@ -10,7 +10,7 @@
 
 <h2>Pour nous suivre </h2>
 
-<p>Actualités sur le réseau Yammer https://www.yammer.com/bigdatadatascience/#/home dans le groupe "Hackathon : Les champs de Sirene"</p>
+<p>Actualités sur le réseau <a href="https://www.yammer.com/bigdatadatascience/#/home">Yammer</a> dans le groupe "Hackathon : Les champs de Sirene"</p>
 
 <h2>Comment est organisé ce Github :</h2>
 
