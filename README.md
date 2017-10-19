@@ -1,5 +1,4 @@
-# Hackathon-2018
-<titre>Hackathon SSP "les champs de Sirene"</titre>
+<titre>Hackathon-2018 : "Les champs de Sirene"</titre>
 
 <h1>Pour participer </h1>
 
