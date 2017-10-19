@@ -3,6 +3,8 @@ Hackathon SSP "les champs de Sirene"
 
 Inscription sur <a title="Logiciel billetterie en ligne" href="https://www.weezevent.com/hackathon-les-champs-de-sirene-2" class="weezevent-widget-integration" target="_blank" data-src="https://www.weezevent.com/widget_billeterie.php?id_evenement=288620&lg_billetterie=1&code=52865&resize=1&width_auto=1&color_primary=00AEEF" data-width="650" data-height="600" data-id="288620" data-resize="1" data-width_auto="1" data-noscroll="0" data-nopb="0">Billetterie Weezevent</a>
 
+<a href="https://www.weezevent.com/widget_billeterie.php?id_evenement=288620&lg_billetterie=1&code=52865&width_auto=1&color_primary=00AEEF" onclick="var w=window.open('https://www.weezevent.com/widget_billeterie.php?id_evenement=288620&lg_billetterie=1&code=52865&width_auto=1&color_primary=00AEEF', 'Billetterie_weezevent', 'width=650, height=600, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><img src="https://www.weezevent.com/images/statique/bt_insc_blk_fr.png" alt="Inscription" /></a>
+
 Contact pour plus d'informations : info-hackathon@insee.fr
 
 Actualités sur le réseau Yammer https://www.yammer.com/bigdatadatascience/#/home dans le groupe "Hackathon : Les champs de Sirene"
