@@ -1,5 +1,5 @@
 # Hackathon-2018
-Hackathon SSP "les champs de Sirene"
+<titre>Hackathon SSP "les champs de Sirene"</titre>
 
 Inscription sur <a title="Logiciel billetterie en ligne" href="https://www.weezevent.com/hackathon-les-champs-de-sirene-2" class="weezevent-widget-integration" target="_blank" data-src="https://www.weezevent.com/widget_billeterie.php?id_evenement=288620&lg_billetterie=1&code=52865&resize=1&width_auto=1&color_primary=00AEEF" data-width="650" data-height="600" data-id="288620" data-resize="1" data-width_auto="1" data-noscroll="0" data-nopb="0">Billetterie Weezevent</a>
 
