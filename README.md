@@ -6,18 +6,18 @@
 
 <a href="https://www.weezevent.com/hackathon-les-champs-de-sirene-2" onclick="var w=window.open('https://www.weezevent.com/widget_billeterie.php?id_evenement=288620&lg_billetterie=1&code=52865&width_auto=1&color_primary=00AEEF', 'Billetterie_weezevent', 'width=650, height=600, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><img src="https://www.weezevent.com/images/statique/bt_insc_blk_fr.png" alt="Inscription pour le hackathon" /></a>
 
-Contact pour plus d'informations : info-hackathon@insee.fr
+<p>Contact pour plus d'informations : info-hackathon@insee.fr</p>
 
 <h2>Pour nous suivre </h2>
 
-Actualités sur le réseau Yammer https://www.yammer.com/bigdatadatascience/#/home dans le groupe "Hackathon : Les champs de Sirene"
+<p>Actualités sur le réseau Yammer https://www.yammer.com/bigdatadatascience/#/home dans le groupe "Hackathon : Les champs de Sirene"</p>
 
 <h2>Comment est organisé ce Github :</h2>
 
-Sur ce repo Github on trouvera documentation, codes, actualités pour le hackathon organisé les 18 et 19 janvier 2017 à l'ENSAE. 
+<p>Sur ce repo Github on trouvera documentation, codes, actualités pour le hackathon organisé les 18 et 19 janvier 2017 à l'ENSAE.</p>
 
-Le fichier "description générale" présente les principales informations relatives à l'événement.
+<p>Le fichier "description générale" présente les principales informations relatives à l'événement.</p>
 
-Le fichier "exemples" expose des cas d'identification difficile dans SIRENE à partir de données receuillies lors de l'Enquête emploi.
+<p>Le fichier "exemples" expose des cas d'identification difficile dans SIRENE à partir de données receuillies lors de l'Enquête emploi.</p>
 
-Le fichier "journées de préparation" décrit le détail du programme des 27 novembre et 4 décembre 2017.
+<p>Le fichier "journées de préparation" décrit le détail du programme des 27 novembre et 4 décembre 2017.</p>
