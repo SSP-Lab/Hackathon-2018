@@ -8,6 +8,8 @@ Inscription sur <a title="Logiciel billetterie en ligne" href="https://www.weeze
 
 Contact pour plus d'informations : info-hackathon@insee.fr
 
+<h2>Pour nous suivre </h2>
+
 Actualités sur le réseau Yammer https://www.yammer.com/bigdatadatascience/#/home dans le groupe "Hackathon : Les champs de Sirene"
 
 
