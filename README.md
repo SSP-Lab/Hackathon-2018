@@ -6,7 +6,7 @@
 
 <a href="https://www.weezevent.com/hackathon-les-champs-de-sirene-2" onclick="var w=window.open('https://www.weezevent.com/widget_billeterie.php?id_evenement=288620&lg_billetterie=1&code=52865&width_auto=1&color_primary=00AEEF', 'Billetterie_weezevent', 'width=650, height=600, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><img src="https://www.weezevent.com/images/statique/bt_insc_blk_fr.png" alt="Inscription pour le hackathon" /></a>
 
-<p>Contact pour plus d'informations : <a href=mailto:info-hackathon@insee.fr> info-hackathon@insee.fr </a></p>
+<p>Contact pour plus d'informations : <a href="mailto:info-hackathon@insee.fr"> info-hackathon@insee.fr </a></p>
 
 <h2>Pour nous suivre </h2>
 
