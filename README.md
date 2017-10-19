@@ -12,7 +12,7 @@ Contact pour plus d'informations : info-hackathon@insee.fr
 
 Actualités sur le réseau Yammer https://www.yammer.com/bigdatadatascience/#/home dans le groupe "Hackathon : Les champs de Sirene"
 
-<h2>Comment est organisé ce Github</h2> :
+<h2>Comment est organisé ce Github :</h2>
 
 Sur ce repo Github on trouvera documentation, codes, actualités pour le hackathon organisé les 18 et 19 janvier 2017 à l'ENSAE. 
 
