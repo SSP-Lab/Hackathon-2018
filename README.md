@@ -21,3 +21,5 @@
 <p>Le fichier "exemples" expose des cas d'identification difficile dans SIRENE à partir de données receuillies lors de l'Enquête emploi.</p>
 
 <p>Le fichier "journées de préparation" décrit le détail du programme des 27 novembre et 4 décembre 2017 à l'ENSAE.</p>
+
+<p>Dans le dossier "Journees de preparation" on trouvera les présentations effectuées lors des deux journées programmées ainsi que des tutoriels pour aider à une prise en main des outils R et/ou Python dans le contexte du hackathon. </p>
