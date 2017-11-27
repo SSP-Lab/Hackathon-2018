@@ -23,3 +23,5 @@
 <p>Le fichier "journées de préparation" décrit le détail du programme des 27 novembre et 4 décembre 2017 à l'ENSAE.</p>
 
 <p>Dans le dossier "Journees de preparation" on trouvera les présentations effectuées lors des deux journées programmées ainsi que des tutoriels pour aider à une prise en main des outils R et/ou Python dans le contexte du hackathon. </p>
+
+<p>Le google doc pour pré organiser les équipes : https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit
