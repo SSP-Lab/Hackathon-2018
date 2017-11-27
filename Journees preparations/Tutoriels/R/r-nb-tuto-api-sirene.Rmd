@@ -1,0 +1,60 @@
+---
+title: "R Notebook : Premières requêtes vers API SIRENE en R"
+output: html_notebook
+---
+# Librairies nécessaires
+Pour accéder API SIRENE, on peut utiliser la librairie 'httr' qui permet de construire des requêtes HTTP et de lire leur réponse (cf [un 'tutoriel'getting started'](https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html)
+en anglais.
+API SIRENE renvoyant des données au format JSON, la librairie 'jsonlite' permet de transformer ces données vers des formats de données R (cf. [un 'getting started'] (https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html) en anglais).
+
+```{r}
+library(httr)
+library(jsonlite)
+```
+
+Construire une requête est simple.
+On a besoin 
+*d'un URL :
+```{r}
+url <- "https://prototype.api-sirene.insee.fr/ws/siret"
+```
+
+*des paramètres de la requête :
+```{r}
+#Ici on effectue une recherche sur la raison sociale (champ Denomination) et le #mot choisi parfaitement au hasard, 'Notaire'.
+query <- "q=Denomination:Notaire"
+```
+
+Puis il suffit d'utiliser la fonction GET (ou POST, PUT, HEAD...) pour effectuer une requête.
+```{r}
+reponse <- GET(url=url,query=query)
+```
+
+Au cas où il faille passer par un proxy, il faut au préalable modifier le fichier .Renv qui se trouve à la racine du dossier R :
+```{r}
+# file.edit('~/.Renviron')
+# Il faut y ajouter les lignes http_proxy="......." et https_proxy="......." 
+```
+
+Une fois la requête effectuée, il est préférable d'en vérifier immédiatement le status (le code retour doit être 200).
+```{r}
+warn_for_status(reponse)
+# status_code(reponse) == 200
+```
+
+On peut accèder au contenu de la requête simplement grâce à 'content' :
+
+```{r}
+content(reponse, "text")
+##Il existe aussi 'raw' pour les contenus binaires ou 'parsed' pour visualiser des contenus que le processeur va parser automatiquement.
+##str(content(reponse, "parsed"))
+
+```
+
+Il ne reste plus qu'à s'appuyer sur la fonction fromJSON de jsonlite pour parser le résultat et en faire un dataframe.
+
+```{r}
+fromJSON(content(r,"text"))
+```
+
+Oui, bon, cela n'est pas forcément complètement exploitable en l'état, mais vous avez compris l'idée, à vous de jouer avec maintenant !
