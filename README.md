@@ -10,7 +10,8 @@
 
 <p>Contact pour plus d'informations : <a href="mailto:info-hackathon@insee.fr"> info-hackathon@insee.fr </a></p>
 
-<p>Le google doc pour pré organiser les équipes : https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit
+<p>Le google doc pour pré organiser les équipes : <a href="https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit">ici</a>
+https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit
  
 <h2>Comment est organisé ce Github :</h2>
 
