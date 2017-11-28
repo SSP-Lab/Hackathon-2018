@@ -40,6 +40,8 @@
 - sur la gestion d'objets géographiques avec R : une présentation du package "sf"
 - sur le webscraping : des notebooks avec théorie, exemples et tutos
 
+<p> Le dossier "sujet" contient la présentation du sujet avec des exemples de difficultés d'identification faite pendant les journées de préparation.
+
 <h2>Pour s'inscrire</h2>
 
 <p> inscriptions closes au 15 novembre
