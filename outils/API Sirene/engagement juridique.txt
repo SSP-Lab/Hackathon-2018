@@ -1,0 +1,4 @@
+En participant à ce Hackathon, vous vous engagez à ne pas faire un usage à visée commerciale des données Sirene qui seront mises à votre disposition dans ce cadre, ni à les transmettre hors cercle des participants au Hackathon avant le 4 janvier 2017, date probable de mise en ligne des fichiers de la base Sirene en  open data. 
+Nous vous remercions de cet engagement, qui vous est demandé pour des raisons d'égalité de traitement des réutilisateurs, ce Hackathon étant organisé à une date antérieure à l'ouverture en Open Data des données Sirene  
+
+ 
