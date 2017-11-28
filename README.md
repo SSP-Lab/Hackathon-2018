@@ -16,6 +16,8 @@
 <p>Le google doc pour pré organiser les équipes : <a href="https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit">ici</a>.
 <p>N'hésitez pas à y préciser les idées que vous souhaiteriez creuser pendant le hackathon.
  
+ <p> La liste des participants est accessible <a href="https://docs.google.com/spreadsheets/d/1sLB1xERs_nPPi7uajd-SGMd4sjSK3TMfl3INOMcvWCc/edit#gid=805830236">ici</a>
+ 
 <h2>Comment est organisé ce Github :</h2>
 
 <p>Sur ce repo Github on trouvera documentation, codes, actualités pour le hackathon organisé les 18 et 19 janvier 2017 à l'ENSAE.</p>
