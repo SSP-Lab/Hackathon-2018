@@ -13,7 +13,7 @@
 <h2>Constitution des équipes</h2>
 
 <p>Afin de ne pas perdre trop de temps avec la constitution des équipes au matin du 18 janvier, les participants sont invités à se regrouper en amont en équipe (autour de 3-5 personnes environ).
-<p>Le google doc pour pré organiser les équipes : <a href="https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit">ici</a>.
+<p><b>Le google doc pour pré organiser les équipes : <a href="https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit">ici</a>.</b>
 <p>N'hésitez pas à y préciser les idées que vous souhaiteriez creuser pendant le hackathon.
  
  <p> La liste des participants est accessible <a href="https://docs.google.com/spreadsheets/d/1sLB1xERs_nPPi7uajd-SGMd4sjSK3TMfl3INOMcvWCc/edit#gid=805830236">ici</a>
@@ -30,19 +30,19 @@
 
 <p>Dans le dossier "Journees de preparation" on trouvera les présentations effectuées lors des deux journées programmées ainsi que des tutoriels pour aider à une prise en main des outils R et/ou Python dans le contexte du hackathon. </p>
 
-<p> Le dossier "donnée" contient les présentations des données faites lors des journées de préparation :
+<p> <b>Le dossier "données"</b> contient les présentations des données faites lors des journées de préparation :
 - sur les données du recensement
 - sur le répertoire Sirene
 - sur les données issues de Geoloc
 
-<p> Le dossier "outil" contient les présentations des outils faites lors des journées de préparation :
+<p> <b>Le dossier "outils"</b> contient les présentations des outils faites lors des journées de préparation :
 - sur l'API Sirene : une doc, le lien vers la présentation et des tutos pour passer les requêtes depuis R ou Python
 - sur la gestion d'objets géographiques avec R : une présentation du package "sf"
 - sur le webscraping : des notebooks avec théorie, exemples et tutos
 
 <p> Le dossier "sujet" contient la présentation du sujet avec des exemples de difficultés d'identification faite pendant les journées de préparation.
 
-<p> Et pour savoir combien nous sommes à dîner ensemble le jeudi soir, mettez votre nom <a href="https://doodle.com/poll/phc7298sxddqxznd#table">là</a>.
+<p> Et pour savoir combien nous sommes à <b>dîner ensemble le jeudi soir</b>, mettez votre nom <a href="https://doodle.com/poll/phc7298sxddqxznd#table">là</a>.
 
 <h2>Pour s'inscrire</h2>
 
