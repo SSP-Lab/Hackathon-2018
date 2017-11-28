@@ -42,6 +42,8 @@
 
 <p> Le dossier "sujet" contient la présentation du sujet avec des exemples de difficultés d'identification faite pendant les journées de préparation.
 
+<p> Et pour savoir combien nous sommes à dîner ensemble le jeudi soir, mettez votre nom <a href="https://doodle.com/poll/phc7298sxddqxznd#table">là</a>.
+
 <h2>Pour s'inscrire</h2>
 
 <p> inscriptions closes au 15 novembre
