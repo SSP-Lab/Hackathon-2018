@@ -10,7 +10,10 @@
 
 <p>Contact pour plus d'informations : <a href="mailto:info-hackathon@insee.fr"> info-hackathon@insee.fr </a></p>
 
-<p>Le google doc pour pré organiser les équipes : <a href="https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit">ici</a>
+<h2>Constitution des équipes</h2>
+
+<p>Afin de ne pas perdre trop de temps avec la constitution des équipes au matin du 18 janvier, les participants sont invités à se regrouper en amont en équipe (autour de 3-5 personnes environ).
+<p>Le google doc pour pré organiser les équipes : <a href="https://docs.google.com/spreadsheets/u/0/d/15WkJdsY9__25wBJmZGPB2dWpYczUwlhH-VhwkPl-Hbk/edit">ici</a> N'hésitez pas à y préciser les idées que vous souhaiteriez creuser pendant le hackathon.
  
 <h2>Comment est organisé ce Github :</h2>
 
