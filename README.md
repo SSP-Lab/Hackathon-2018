@@ -30,10 +30,19 @@
 
 <p>Dans le dossier "Journees de preparation" on trouvera les présentations effectuées lors des deux journées programmées ainsi que des tutoriels pour aider à une prise en main des outils R et/ou Python dans le contexte du hackathon. </p>
 
+<p> Le dossier "donnée" contient les présentations des données faites lors des journées de préparation :
+- sur les données du recensement
+- sur le répertoire Sirene
+- sur les données issues de Geoloc
 
- 
+<p> Le dossier "outil" contient les présentations des outils faites lors des journées de préparation :
+- sur l'API Sirene : une doc, le lien vers la présentation et des tutos pour passer les requêtes depuis R ou Python
+- sur la gestion d'objets géographiques avec R : une présentation du package "sf"
+- sur le webscraping : des notebooks avec théorie, exemples et tutos
 
 <h2>Pour s'inscrire</h2>
+
+<p> inscriptions closes au 15 novembre
 
 <a href="https://www.weezevent.com/hackathon-les-champs-de-sirene-2" onclick="var w=window.open('https://www.weezevent.com/widget_billeterie.php?id_evenement=288620&lg_billetterie=1&code=52865&width_auto=1&color_primary=00AEEF', 'Billetterie_weezevent', 'width=650, height=600, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><img src="https://www.weezevent.com/images/statique/bt_insc_blk_fr.png" alt="Inscription pour le hackathon" /></a>
 
