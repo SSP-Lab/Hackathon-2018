@@ -1,0 +1,125 @@
+---
+title: "Les Champs de Sirene"
+author: "François Sémécurbe"
+date: "27 novembre 2017"
+output: html_notebook
+---
+
+
+#la librairie SF
+
+"sf" est une librairie pour la manipulation d'objets géographiques tels que les points, les lignes et les polygones.
+on présente ici un exemple d'utilisation de ces outils pour la représentation des tabacs parisiens
+on va donc charger à la fois les coordonnées des tabacs et le shapefile des arrondissements de Paris
+
+```{r}
+library(sf)
+setwd("/Users/sakarovitch/Documents/insee/trpourlundi")
+```
+
+
+#Chargement des données
+
+```{r}
+tabac=read.csv("tabac.csv",sep=",",as.is=T)
+tabac[1:10,]
+```
+
+#Chargement du shapefile
+
+la fonction sf_transform permet de passer d'un système de coordonnées à un autre
+```{r}
+arrondissement=st_read("arrondissement.shp")
+arrondissement=st_transform(arrondissement, 2154)
+arrondissement=arrondissement[order(arrondissement$C_ARINSEE),]
+arrondissement[1:5,]
+plot(arrondissement)
+```
+
+
+
+#calcul des coordonnées des centroides
+
+La fonction st_centroid calcul le centre d'un polygone, et la fonction st_coordinates extrait les coordonnées d'un point
+```{r}
+coord_arrondissement=(st_coordinates(st_centroid(arrondissement)))
+arrondissement$x=coord_arrondissement[,1]
+arrondissement$y=coord_arrondissement[,2]
+```
+
+
+
+#Calcule de distances
+utilisation simple
+
+```{r}
+tabac_distance=tabac
+distance=((outer(tabac_distance$x,arrondissement$x,"-"))^2+(outer(tabac_distance$y,arrondissement$y,"-"))^2)^0.5
+distance=data.frame(distance)
+names(distance)=paste0("arr",75001:75020)
+tabac_distance=cbind(tabac_distance,distance)
+```
+
+
+
+#du point à un objet géographique
+
+à partir des coordonnées on cherche à construire un objet géographique, le point.
+on pourra ensuite représenter les points sur une carte ou tester l'appartenance du point à un autre objet géographique comme le polygone
+c'est la fonction st_sf qui permet de créer un objet de type sf, objet héritant de la classe des dataframe.
+Grossièrement il s'agit d'un dataframe avec une colonne supplémentaire contenant une liste de coordonnées, c'est la colonne dite de géométrie.
+Pour créer donc des objets sf contenant les tabacs comme des points il faut préciser la géométrie de ces objets,
+c'est à dire fournir une colonne géométrie correspondante.
+Pour cela on utilise la fonction st_as_sfc qui convertit une géométrie en un objet du package sf.
+L'option crs désigne le système de coordonnées utilisé.
+
+```{r}
+geometry=st_as_sfc(paste0("POINT (",tabac$x," ",tabac$y,")"),crs=2154)
+tabac_sf=st_sf(tabac,geometry=geometry)
+tabac_sf[1:10,]
+plot(tabac_sf)
+```
+
+
+#Exemples
+
+calcul intersection
+```{r}
+contain=st_contains(arrondissement,tabac_sf[1,],sparse=F)
+tabac_sf[1,"ARRONDISSEMENT"]
+arrondissement$C_ARINSEE[contain] 
+```
+
+matrice de contiguïté
+```{r}
+(conti=st_touches(arrondissement,arrondissement,sparse=F))
+```
+
+les arrondissements contigus au 20eme  
+```{r}
+plot(arrondissement[conti[20,],],max.plot=1)
+```
+
+
+
+#représentation spatiale des points sous la forme d'une nappe spatiale
+
+```{r}
+library(btb)
+library(cartography)
+
+tabac$un=1#la variable à lisser
+lissage=kernelSmoothing(tabac[,c("x","y","un")],200,2000)
+lissage$dens=lissage$un*25#pour recuperer une densite
+grid <- st_as_sf(smoothingToGrid(lissage, "2154"))
+choroLayer(grid, var = "dens", nclass = 5,method =  "fisher-jenks",border=NA)   
+plot(arrondissement,add=T)
+```
+
+
+
+
+
+
+
+
