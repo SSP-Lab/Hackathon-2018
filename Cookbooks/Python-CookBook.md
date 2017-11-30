@@ -6,15 +6,15 @@ Bref, ceux qui ont déjà écrit des lignes en Python mais qui se demande commen
 
 ## Manipuler des fichiers csv
 Une partie des données sera sous forme de fichiers csv, une bibliothèque pratique conseillée est la célèbre bibliothèque pandas.
-Il y a des exemples d'utilisation sous forme de notebook jupyter  [ici](https://github.com/SSP-Lab/Hackathon-2018/blob/master/données/tuto%20ouverture%20des%20données/python-jupyter-tuto-csv.ipynb)
+Il y a des exemples d'utilisation sous forme de notebook jupyter  [ici](https://github.com/SSP-Lab/Hackathon-2018/blob/master/Données/tuto%20ouverture%20des%20données/python-jupyter-tuto-csv.ipynb)
 
 ## Accéder une API
 Certaines sources de données sont accessibles au travers d'API.
 Si vous n'avez aucune idée de quoi il est question, une [petite suggestion](https://www.dataquest.io/blog/python-api-tutorial/) pour commencer, attention c'est en anglais.
-Si vous savez de quoi il est question mais de là à l'écrire facilement en Python... justement c'est [facile](https://github.com/SSP-Lab/Hackathon-2018/blob/master/outils/API%20Sirene/python-jupyter-tuto-api-sirene.ipynb ).
+Si vous savez de quoi il est question mais de là à l'écrire facilement en Python... justement c'est [facile](https://github.com/SSP-Lab/Hackathon-2018/blob/master/Outils/API%20Sirene/python-jupyter-tuto-api-sirene.ipynb ).
 
 ## Manipuler du json
 Oui les API cela renvoie souvent du JSON, si vous avez fait lu le tuto précédent, vous avez vu que ce n'est pas très compliqué en Python, sinon : 'bouton retour'.
 
 ## API SIRENE + RP ça donne quoi ?
-Pour ceux qui ont encore un petit creux ou qui justement n'ont qu'un petit creux, un [notebook](https://github.com/SSP-Lab/Hackathon-2018/blob/master/outils/API%20Sirene/python-jupyter-demo-rp-sirene.ipynb) qui présente succintement un appel à l'API SIRENE à partir de données du recensement. Il est volontairement fait pour caler.
+Pour ceux qui ont encore un petit creux ou qui justement n'ont qu'un petit creux, un [notebook](https://github.com/SSP-Lab/Hackathon-2018/blob/master/Outils/API%20Sirene/python-jupyter-demo-rp-sirene.ipynb) qui présente succintement un appel à l'API SIRENE à partir de données du recensement. Il est volontairement fait pour caler.
