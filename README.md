@@ -28,8 +28,6 @@
 
 <p>Le fichier "journées de préparation" décrit le détail du programme des 27 novembre et 4 décembre 2017 à l'ENSAE.</p>
 
-<p>Dans le dossier "Journees de preparation" on trouvera les présentations effectuées lors des deux journées programmées ainsi que des tutoriels pour aider à une prise en main des outils R et/ou Python dans le contexte du hackathon. </p>
-
 <p> <b>Le dossier "données"</b> contient les présentations des données faites lors des journées de préparation :
 - sur les données du recensement
 - sur le répertoire Sirene
@@ -41,6 +39,8 @@
 - sur le webscraping : des notebooks avec théorie, exemples et tutos
 
 <p> Le dossier "sujet" contient la présentation du sujet avec des exemples de difficultés d'identification faite pendant les journées de préparation.
+
+<p> Le dossier "Cookbooks" contient des guides pour démarrer sur "comment qu'on code". Le menu général est [là](https://github.com/SSP-Lab/Hackathon-2018/blob/master/Cookbooks/Menu%20g%C3%A9n%C3%A9ral.md)
 
 <p> Et pour savoir combien nous sommes à <b>dîner ensemble le jeudi soir</b>, mettez votre nom <a href="https://doodle.com/poll/phc7298sxddqxznd#table">là</a>.
 
