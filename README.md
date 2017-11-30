@@ -38,9 +38,9 @@
 - sur la gestion d'objets géographiques avec R : une présentation du package "sf"
 - sur le webscraping : des notebooks avec théorie, exemples et tutos
 
-<p> Le dossier "sujet" contient la présentation du sujet avec des exemples de difficultés d'identification faite pendant les journées de préparation.
+<p> <b>Le dossier "sujet"</b> contient la présentation du sujet avec des exemples de difficultés d'identification faite pendant les journées de préparation.
 
-<p> Le dossier "Cookbooks" contient des guides pour démarrer sur "comment qu'on code". Le menu général est [là](https://github.com/SSP-Lab/Hackathon-2018/blob/master/Cookbooks/Menu%20g%C3%A9n%C3%A9ral.md)
+<p><b> Le dossier "Cookbooks"</b> contient des guides pour démarrer sur "comment qu'on code". Le menu général est <a href='https://github.com/SSP-Lab/Hackathon-2018/blob/master/Cookbooks/Menu%20g%C3%A9n%C3%A9ral.md'>là</a>
 
 <p> Et pour savoir combien nous sommes à <b>dîner ensemble le jeudi soir</b>, mettez votre nom <a href="https://doodle.com/poll/phc7298sxddqxznd#table">là</a>.
 
