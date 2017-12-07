@@ -1,8 +1,9 @@
 # R CokeBook - Hackathon champs de SIRENE
 
 ## Manipuler des fichiers csv
-Une partie des données sera sous forme de fichiers csv, une librairie quasi indispensable en R est 'deplyr', sa [doc officielle](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html), une [alternative en français](https://thinkr.fr/utiliser-la-grammaire-dplyr-pour-triturer-ses-donnees/) et une version ["synthétique-type-menu-restaurant-japonais"](https://www.rstudio.com/wp-content/uploads/2016/01/data-wrangling-french.pdf).
+Une partie des données sera sous forme de fichiers csv, une librairie quasi indispensable en R est `dplyr`, sa [doc officielle](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html), une [alternative en français](https://thinkr.fr/utiliser-la-grammaire-dplyr-pour-triturer-ses-donnees/) et une version ["synthétique-type-menu-restaurant-japonais"](https://www.rstudio.com/wp-content/uploads/2016/01/data-wrangling-french.pdf).
 
+Si la taille des fichiers `csv` et l'utilisation de `dplyr` pose des problèmes de performance à votre machine, vous pouvez utiliser le package `data.table` qui est très efficace sur de gros volumes de données : [un exemple sur le text-mining](https://github.com/SSP-Lab/Hackathon-2018/blob/master/Cookbooks/R-datatable-CookBook.Rmd). Vous pourrez ainsi diviser par environ 30 les temps de traitement par rapport à `dplyr` mais la syntaxe est plus difficile à lire.
 
 ## Accéder une API
 Certaines sources de données sont accessibles au travers d'API.
