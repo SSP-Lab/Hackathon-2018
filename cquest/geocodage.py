@@ -14,6 +14,11 @@ addok_ban = 'http://localhost:7979/search/'
 addok_bano = 'http://localhost:7878/search'
 addok_sirene = 'http://localhost:7575/search'
 
+# version non locale des API
+addok_ban = 'http://ban.addok.xyz/search/'
+addok_bano = 'http://bano.addok.xyz/search'
+addok_sirene = 'http://sirene.addok.xyz/search'
+
 geocode_count = 0
 
 """
