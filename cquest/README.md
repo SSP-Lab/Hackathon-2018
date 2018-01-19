@@ -13,7 +13,7 @@ addok est à la base unmoteur de recherche fulltext spécialisé dans les adress
 
 ## Préparation
 
-Le script 0_preparation.sh remet en forme les fichiers rp_final_xxxx:
+Le script **0_preparation.sh** remet en forme les fichiers rp_final_xxxx:
 - format CSV standard (séparateur virgule, encodage UTF8)
 - remise en ordre des colonnes
 
@@ -21,7 +21,7 @@ Il génère 2 fichiers (rp2014.csv et rp2017.csv) exploitables par le script sui
 
 ## Géocodage
 
-1_geocodage.py appelle le script python geocodage.py pour les deux fichiers rp.
+**1_geocodage.sh** appelle le script python **geocodage.py** pour les deux fichiers rp.
 
 Pour chaque ligne du fichier CSV d'entrée, il effectue le géocodage sur les 3 instances addok en constituant un chaîne de texte à chercher composée de l'adresse seule (pour BAN et BANO) ou complétée par la raison sociale (pour SIRENE).
 
