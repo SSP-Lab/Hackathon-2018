@@ -30,6 +30,9 @@ Les resultats sont ensuite comparés, si le score SIRENE est élevé, il est con
 ## Fichiers produits
 
 En sortie de script de géocodage, c'est un fichier CSV qui est généré, contenant des colonnes supplémentaires résultat du géocodage.
-La colonne 'type' indique le type d'adresse trouvée: siret (on a trouvé une entreprise), housenumber (adresse au numéro), street (adresse à la voie), municipality (adresse à la commune)
-La colonne 'id' contient l'identifiant de l'adresse, pour le type=siret, il s'agit du SIRET de l'établissement trouvé.
-La colonne 'score' contient le score de matching, plus il est proche de 1 meilleur est le résultat.
+
+La colonne '**type**' indique le type d'adresse trouvée: siret (on a trouvé une entreprise), housenumber (adresse au numéro), street (adresse à la voie), municipality (adresse à la commune)
+
+La colonne '**id**' contient l'identifiant de l'adresse, pour le type=siret, il s'agit du SIRET de l'établissement trouvé.
+
+La colonne '**score**' contient le score de matching, plus il est proche de 1 meilleur est le résultat.
