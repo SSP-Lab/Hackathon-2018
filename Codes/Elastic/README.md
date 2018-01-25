@@ -9,3 +9,4 @@ Pour récupérer la dernière version des codes sources :
     git submodule init
     git submodule update --remote
 
+Pour toute question : https://github.com/hcstm/sirus-elasticsearch/issues
