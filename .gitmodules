@@ -1,0 +1,3 @@
+[submodule "Codes/Elastic/siroogle"]
+	path = Codes/Elastic/siroogle
+	url = https://github.com/hcstm/sirus-elasticsearch.git
