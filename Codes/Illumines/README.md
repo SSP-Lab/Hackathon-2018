@@ -7,7 +7,7 @@
 
 <h2>Notre équipe</h2>
 
-<p>Constituée de trois personnes, deux provennat du ministère des Armées (Pierre Carrelet et Mathieu Eury) et un agent Insee (Marie-Anne Houlbrèque). Nous avions comme objectif de retrouver la raison sociale et le siret des bulletins du recensement pour lesquels la mca avait abouti à un résultat peu satsfaisant (soit rien soit mauvais).</p>
+<p>Constituée de trois personnes, deux provennat du ministère des Armées (Pierre Carrelet et Mathieu Eury) et un agent Insee (Marie-Anne Houlbrèque). Nous avions comme objectif de retrouver la raison sociale et le siret des bulletins du recensement pour lesquels la mca avait abouti à un résultat peu satisfaisant (soit rien soit mauvais).</p>
 <p>Pour ce faire, nous avons choisi de requêter le site Kompass en utilisant un script R et le package Rvest. Au préalable, il fallait apparier les codes communes pour renseigner le code région (version à 22 régions encore utilisée sous Kompass) et le libellé de commune. </p>
 
 <h2>Les scripts</h2>
