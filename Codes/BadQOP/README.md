@@ -58,6 +58,8 @@ df_rp2017 <- df_rp2017 %>%  filter(substr(ACTET_C,1,2) %in% c('84', '85', '86', 
                                    )
 ```
 
+\*\* TO DO: METTRE BOUT DE CODE sirus\_o\_p\_q \*\*
+
 Ceci constitue notre échantillon de départ
 
 ETAPE 1: CONSTITUTION DE RAISONS SOCIALES COHERENTES
