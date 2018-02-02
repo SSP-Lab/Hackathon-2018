@@ -1,11 +1,18 @@
-Hackathon
-================
-Bad QOP
-24 janvier 2018
+---
+title: "Hackathon"
+author: "Bad QOP"
+date: "24 janvier 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
+```
 
 Ce document présente les principales parties du code utilisé dans le document `main.R` qui nous a permis de faire notre codification automatique. Les librairies nécessaires sont les suivantes:
 
-``` r
+```{r}
 library(dplyr)
 library(ggplot2)
 library(foreach)
@@ -15,26 +22,22 @@ library(curl)
 library(httr)
 library(sp)
 ```
-
 et les fonctions appelées au cours du code sont les suivantes
-
-``` r
+```{r}
 source(paste0(getwd(),"/R/getGEOAPI.R"),encoding = "UTF-8")
 source(paste0(getwd(),"/R/api_siret.R"),encoding = "UTF-8")
 source(paste0(getwd(),"/R/check_validation.R"),encoding = "UTF-8")
 source(paste0(getwd(),"/R/ppv_xy.R"),encoding = "UTF-8")
 ```
-
 Ces documents ont une documentation `roxygen` pour aider à leur compréhension.
 
-Les fichiers `csv` ne sont pas importés dans le repo afin de ne pas surcharger l'espace de stockage. Le document `script.R` montre quel a été la ligne de code nécessaire pour importer ces fichiers mais ce markdown prend comme donnée l'importation des fichiers, peu importe le chemin.
+Les fichiers `csv` ne sont pas importés dans le repo afin de ne pas surcharger l'espace de stockage. Le document `script.R` montre quel a été la ligne de code nécessaire pour importer ces fichiers mais ce markdown prend comme donnée l'importation des fichiers, peu importe le chemin.  
 
-Sélection des individus potentiellement concernés par les secteurs O,P,Q
-========================================================================
+# Sélection des individus potentiellement concernés par les secteurs O,P,Q
 
 On suppose que le dataframe `rp_final_2017.csv` est importé sous le nom `df_rp2017` (par example via `readr::read_csv2`). Pour sélectionner nos individus, on utilise des expressions régulières qui ressortent généralement chez les individus des catégories O,P,Q
 
-``` r
+```{r}
 # ON GARDE LES VARIABLES QUI NOUS INTERESSENT
 df_rp2017 <- df_rp2017 %>%
   select('RS_X', 'CABBI', 'ACTET_C', 'ACTET_X', 'NOMVOI_X', 'NUMVOI_X', 'TYPEVOI_X',
@@ -58,17 +61,15 @@ df_rp2017 <- df_rp2017 %>%  filter(substr(ACTET_C,1,2) %in% c('84', '85', '86', 
                                    )
 ```
 
-Ceci constitue notre échantillon de départ
+Ceci constitue notre échantillon de départ 
 
-ETAPE 1: CONSTITUTION DE RAISONS SOCIALES COHERENTES
-====================================================
+# ETAPE 1: CONSTITUTION DE RAISONS SOCIALES COHERENTES
 
-Etape 1.1. Harmonisation de la raison sociale
-=============================================
+# Etape 1.1. Harmonisation de la raison sociale
 
 La première modification automatique possible est l'harmonisation de la raison sociale. De nombreux individus inscrivent le ministère auquel leur fonction les rattache dans la raison sociale: cette erreur est facilement répérable par des expressions régulières
 
-``` r
+```{r}
 # MOT CLES
 liste.words <- c("MINISTERE DE L'INTERIEUR","MINISTERE DE LA DEFENSE","EDUCATION NATIONALE",
            "GENDARMERIE NATIONALE","MINISTERE DE LA JUSTICE")
@@ -84,17 +85,16 @@ df_rp2017$RS_X <- sapply(1:length(modif), function(i)({
   if (modif[i] == "" & !is.na(modif[i])) df_rp2017$RS_X[i] else modif[i]
 }))
 ```
-
 On fait tout de même attention à ne pas créer un champ vide de raison sociale dans le remplacement. Si la raison sociale se réduit à l'un des mots clés, alors on le laisse (et éventuellement modifie grâce à l'étape 1.2.)
 
-Etape 1.2. Remplacement de la raison sociale quand elle est en fait renseignée dans le nom de voie
---------------------------------------------------------------------------------------------------
+## Etape 1.2. Remplacement de la raison sociale quand elle est en fait renseignée dans le nom de voie
 
-Dans de nombreux cas, le nom de voie décrit le lieu de travail. Par exemple, on retrouve dans de nombreux cas le nom d'un collège, lycée... dans le champ du nom de la voie.
+Dans de nombreux cas, le nom de voie décrit le lieu de travail. Par exemple, on retrouve dans de nombreux cas le nom d'un collège, lycée... dans le champ du nom de la voie. 
 
 La liste de mots qui renvoient à des lieux renseignés dans le mauvais champ est
 
-``` r
+```{r}
+
 listemots <- c("POMPIERS(?)", "MINISTERE",
                "LYCEE", "ECOLE", "CRECHE", "COLLEGE",
                "GARDERIE", "HOPITA(L|UX)",
@@ -107,13 +107,13 @@ listemots <- c("POMPIERS(?)", "MINISTERE",
 
 Cependant, on désire éviter les erreurs d'interprétation dans le cas où le nom de la voie renvoie bien à un des mots précédents (par exemple *rue des écoles*). Dans ce cas, si les mots suivants sont inclus dans la raison sociale, alors le champ `RS_X` n'est pas substitué par `NOMVOI_X`
 
-``` r
+```{r}
 listemots.exclus <- c("RUE","AVENUE","ROUTE","PLACE")
 ```
 
 La substitution est simplement faite par assignation
 
-``` r
+```{r}
 # SUBSTITUE RAISON SOCIALE
 df_rp2017$RS_X[
   grepl(paste(paste0("(",listemots,")"), collapse='|'),df_rp2017$NOMVOI_X) &
@@ -126,16 +126,15 @@ df_rp2017$RS_X[
     ]
 ```
 
-Etape 2: appel de l'API Siret Addok (dérivée de la BAN)
-=======================================================
+# Etape 2: appel de l'API Siret Addok (dérivée de la BAN)
 
-La première étape de la codification automatique consiste à appeler l'`API Siret Addok` issue de la BAN. Celle-ci a l'avantage d'offrir un moteur de recherche textuel qui nous permet d'envoyer des raisons sociales incomplètes ou imparfaites mais tout de même espérer un *match*.
+La première étape de la codification automatique consiste à appeler l'`API Siret Addok` issue de la BAN. Celle-ci a l'avantage d'offrir un moteur de recherche textuel qui nous permet d'envoyer des raisons sociales incomplètes ou imparfaites mais tout de même espérer un *match*. 
 
-Pour cela, nous avons créé une fonction `get.banAPI` qui permet de requêter automatiquement l'API Addok (lorsque paramètre `geo.place = T`) pour rechercher une raison sociale dans une commune donnée (code Insee). La fonction `get.banAPI` (cf. document `getGEOAPI.R` dans le dossier `R` de ce projet) permet également, si `geo.place = F` de rechercher des adresses données (cf. étape \*).
+Pour cela, nous avons créé une fonction `get.banAPI` qui permet de requêter automatiquement l'API Addok (lorsque paramètre `geo.place = T`) pour rechercher une raison sociale dans une commune donnée (code Insee). La fonction `get.banAPI` (cf. document `getGEOAPI.R` dans le dossier `R` de ce projet) permet également, si `geo.place = F` de rechercher des adresses données (cf. étape *).
 
 Afin de rendre cette méthode utilisable en pratique, les appels à `get.banAPI` ont été parallélisés à l'aide du package `foreach`.
 
-``` r
+```{r}
 # INITIALISATION DES CLUSTERS
 cl <- parallel::makeCluster(parallel::detectCores()-1, outfile = "")
 doParallel::registerDoParallel(cl)
@@ -159,7 +158,7 @@ parallel::stopCluster(cl)
 
 Les résultats sont stockés sous forme de liste. Le paramètre `.errorhandling = "pass"` nous permet de renvoyer une sortie d'erreur lorsque l'API ne trouve pas de *match*. On arrange et obtient ainsi un `dataframe`:
 
-``` r
+```{r}
 result <- lapply(1:length(result), function(i)({
   if (stringr::str_detect(result[[i]], "^Error")){ # Résultat API: erreur --> on renvoie des NA
     result <- rep(NA,5)
@@ -175,32 +174,30 @@ df <- tbl_df(cbind(result,SIRET_DEC = df.special$SIRET_DEC))
 
 Lorsqu'elle trouve un *match*, l'API `Addok` renvoie un score indiquant le degré de confiance du résultat. On ne désire pas utiliser les résultats incertains, pour cette raison on élimine les résultats pour lesquels `score` est trop faible. La fonction `check_validation` permet d'étudier la sensibilité des résultats au choix du seuil d'élimination
 
-``` r
+```{r}
 check_validation(df)
 ```
 
-Nous avons remarqué que prendre le seuil de `score` à 50% offre le meilleur compromis entre performance de prédiction et nombre de `siret` codifiés. Nous ne codifions donc automatiquement que les `siret` pour lesquels le score de confiance est supérieur à 50%:
+Nous avons remarqué que prendre le seuil de `score` à 50\% offre le meilleur compromis entre performance de prédiction et nombre de `siret` codifiés. Nous ne codifions donc automatiquement que les `siret` pour lesquels le score de confiance est supérieur à 50\%:
 
-``` r
+```{r}
 # SI SCORE > 50% RESULTAT RECHERCHE SINON NA
 df <- df %>% dplyr::mutate(siret = ifelse(result$score > 0.5, id, NA)) %>%
   dplyr::mutate(siret.imput = ifelse(score > 0.5, 1, NA)) %>% select(siret,siret.imput)
 
 df <- tbl_df(cbind(df_rp2017,df))
 ```
-
 La variable `siret` stocke le `siret` codifiés, la variable `siret.imput` stocke l'étape à laquelle le codage a un lieu
 
-Etape 3: distance textuelle
-===========================
+# Etape 3: distance textuelle
 
 Ecrite mais non implémentée en pratique
 
-`Addok` permettait de codifier les cas les plus évidents (pas besoin de l'adresse, seule une raison sociale approximative suffit). Pour continuer avec les raisons sociales, on peut chercher les raisons sociales proches de celles de `sirus`.
+`Addok` permettait de codifier les cas les plus évidents (pas besoin de l'adresse, seule une raison sociale approximative suffit). Pour continuer avec les raisons sociales, on peut chercher les raisons sociales proches de celles de `sirus`.  
 
 On importe d'abord les données
 
-``` r
+```{r}
 # IMPORT DATA
 sirus_o_p_q <- readr::read_csv2(paste0(getwd(), "/Dossier fourni/Hackathon-2018/sirus_o_p_q.csv")) %>%
   select_(.dots = c("sirus_id", "nic", "apet",
@@ -215,7 +212,7 @@ sirus_o_p_q$siret<-paste0(sirus_o_p_q$sirus_id,sirus_o_p_q$nic2)
 
 L'idée est de regarder les raisons sociales les plus proches dans les communes adjacentes (cas où l'individu se trompe de localité mais ne fait qu'une erreur limitée sur la raison sociale)
 
-``` r
+```{r}
 #On liste les codes communes
 adresse = df$DEPCOM_CODE
 vect <- data.frame(codeinsee = df$DEPCOM_CODE) %>% arrange(codeinsee) %>%
@@ -262,7 +259,7 @@ for(k in liste){
 
 Théoriquement, on peut ensuite faire le bilan:
 
-``` r
+```{r}
 siret_imp <- as.character(siret_imp)
 
 #df2 <- df
@@ -272,16 +269,15 @@ siret_imp <- as.character(siret_imp)
 #)
 ```
 
-Nous avons remarqué un problème car cette méthode sort bien des SIRET mais le taux d'erreur de cette méthode est de 100%. Il y a probablement un problème dans la sortie des résultats mais nous n'avons pas eu le temps de vérifier la raison.
+Nous avons remarqué un problème car cette méthode sort bien des SIRET mais le taux d'erreur de cette méthode est de 100\%. Il y a probablement un problème dans la sortie des résultats mais nous n'avons pas eu le temps de vérifier la raison. 
 
-Etape 4: Appels API Sirene
-==========================
+# Etape 4: Appels API Sirene
 
 Théoriquement, cette méthode vient se greffer après l'étape de distance textuelle. Cependant, comme avions un problème sur la distance textuelle, nous avons mis cette méthode à la suite de l'appel à `Addok`.
 
 L'API Sirene requiert un certain nombre de champs qui sont fournis par le dataframe `ligne`. L'appel à la fonction `api_siret` est parallélisé
 
-``` r
+```{r}
 ligne <- df %>% filter(is.na(siret)) %>%
   select_(.dots = c('CABBI', 'RS_X', 'NOMVOI_X', 'NUMVOI_X', 'TYPEVOI_X',
                                   'BISTER_X', 'CLT_X', 'CLT_C_C'))
@@ -309,9 +305,9 @@ parallel::stopCluster(cl)
 result <- do.call(rbind,result)
 ```
 
-Comme on ne dispose pas de score de confiance, toutes les valeurs non `NA` sont imputées (si dans le futur un score de confiance est renvoyé, il serait intéressant de discriminer les résultats en fonction de celui-ci).
+Comme on ne dispose pas de score de confiance, toutes les valeurs non `NA` sont imputées (si dans le futur un score de confiance est renvoyé, il serait intéressant de discriminer les résultats en fonction de celui-ci). 
 
-``` r
+```{r}
 df2 <- df
 df2$siret.imput[is.na(df2$siret)] <- ifelse(!is.na(result$siren) & !is.na(result$siren),
                                       2, NA)
@@ -319,12 +315,11 @@ df2$siret[is.na(df2$siret)] <- ifelse(!is.na(result$siren) & !is.na(result$siren
                                       paste0(result$siren,result$nic), df2$siret)
 ```
 
-Etape 5: Appels de l'API BAN
-============================
+# Etape 5: Appels de l'API BAN
 
-L'`API Sirene` permettait de rechercher les établissements en fonction d'une adresse. S'il n'y a pas de retour de celle-ci, peut-être que l'adresse pose problème. Pour corriger ce problème on peut faire des appels auprès de la BAN qui nous permet de chercher, malgré une adresse vague, une adresse plus propre, que l'on peut alors utiliser via l'API `Sirene` ou `Addok`. Nous avons testé cette méthode indépendamment des autres mais n'avons pas eu le temps de la mettre dans la continuité de l'étape précédente.
+L'`API Sirene` permettait de rechercher les établissements en fonction d'une adresse. S'il n'y a pas de retour de celle-ci, peut-être que l'adresse pose problème. Pour corriger ce problème on peut faire des appels auprès de la BAN qui nous permet de chercher, malgré une adresse vague, une adresse plus propre, que l'on peut alors utiliser via l'API `Sirene` ou `Addok`. Nous avons testé cette méthode indépendamment des autres mais n'avons pas eu le temps de la mettre dans la continuité de l'étape précédente. 
 
-``` r
+```{r}
 # ===========================
 # API BAN
 # ===========================
@@ -362,14 +357,14 @@ result <- lapply(1:length(result), function(i)({
 result <- tbl_df(do.call(rbind,result))
 ```
 
-Etape 6: Plus proches voisins géographiques depuis `sirus`
-==========================================================
 
-La dernière étape consiste à imputer les dernières valeurs non encore codifiées. Pour cela, on peut regarder, depuis Sirus, si le plus proche voisin ne peut pas nous aider à obtenir une géolocation précise, i.e. à remplacer les (*x*, *y*) problématiques et ensuite aller voir la base `sirus`.
+# Etape 6: Plus proches voisins géographiques depuis `sirus`
+
+La dernière étape consiste à imputer les dernières valeurs non encore codifiées. Pour cela, on peut regarder, depuis Sirus, si le plus proche voisin ne peut pas nous aider à obtenir une géolocation précise, i.e. à remplacer les $(x,y)$ problématiques et ensuite aller voir la base `sirus`. 
 
 La fonction `ppv_xy` est construite sur ce modèle. Cependant, nous n'avons pas eu le temps de l'intégrer au flot et ainsi la tester à la suite de nos données (celle-ci a été testée séparemment)
 
-``` r
+```{r}
 # =========================
 # PLUS PROCHES VOISINS
 # =========================
