@@ -22,7 +22,7 @@ library(curl)
 library(httr)
 library(sp)
 ```
-et les fonctions appelées au cours du code sont les suivantes
+et les fonctions `R` appelées au cours du code sont les suivantes
 ```{r}
 source(paste0(getwd(),"/R/getGEOAPI.R"),encoding = "UTF-8")
 source(paste0(getwd(),"/R/api_siret.R"),encoding = "UTF-8")
@@ -31,18 +31,23 @@ source(paste0(getwd(),"/R/ppv_xy.R"),encoding = "UTF-8")
 ```
 Ces documents ont une documentation `roxygen` pour aider à leur compréhension.
 
-Les fichiers `csv` ne sont pas importés dans le repo afin de ne pas surcharger l'espace de stockage. Le document `script.R` montre quel a été la ligne de code nécessaire pour importer ces fichiers mais ce markdown prend comme donnée l'importation des fichiers, peu importe le chemin.  
+Les fichiers `csv` ne sont pas importés dans le repo afin de ne pas surcharger l'espace de stockage. Le document `script.R` montre quelle a été la ligne de code nécessaire pour importer ces fichiers. Ce `markdown` prend comme donnée l'importation des fichiers, peu importe le chemin.  
 
 # Etape 0: Sélection des individus potentiellement concernés par les secteurs O,P,Q
+
+## Base `rp`
 
 On suppose que le dataframe `rp_final_2017.csv` est importé sous le nom `df_rp2017` (par example via `readr::read_csv2`). Pour sélectionner nos individus, on utilise des expressions régulières qui ressortent généralement chez les individus des catégories O,P,Q
 
 ```{r}
 # ON GARDE LES VARIABLES QUI NOUS INTERESSENT
 df_rp2017 <- df_rp2017 %>%
-  select('RS_X', 'CABBI', 'ACTET_C', 'ACTET_X', 'NOMVOI_X', 'NUMVOI_X', 'TYPEVOI_X',
-         'BISTER_X', 'CPLADR_X', 'CLT_X','DLT_X', 'CLT_C_C', 'PLT_X', 'DEPCOM_CODE',
-         'PROFS_X', 'SIRET_DEC', 'x', 'y',"SourceXYW",'qual',
+  select('RS_X', 'CABBI', 'ACTET_C', 'ACTET_X', 'NOMVOI_X',
+         'NUMVOI_X', 'TYPEVOI_X',
+         'BISTER_X', 'CPLADR_X', 'CLT_X','DLT_X',
+         'CLT_C_C', 'PLT_X', 'DEPCOM_CODE',
+         'PROFS_X', 'SIRET_DEC',
+         'x', 'y',"SourceXYW",'qual',
          'SIRETC','SIRETM','qual','VARDOMPART_X','I_MCA_C')
 
 # LISTE DES PROFESSIONS ASSOCIEES A OPQ
@@ -50,8 +55,10 @@ liste_opq <- c("POMPIERS(?)","MINISTERE","EDUCATION","LYCEE","ECOLE",
                "CRECHE","GARDERIE","COLLEGE","UNIVERSIT(E|AIRE)",
                "PUBLI(QUE|C)S? ","HOPITA(L|UX)","AP(-)?(^)?HP","HOSPITALIER(S)?","POLICE",
                "GENDARMERIE","FONCTIONNAIRE", "DEPARTEMENT(AL)?(AUX)?","MAIRIE",
-               "PREFECT(URE)?(ORAL)?(ORAUX)?","RETRAITE","CLINIQUE","TRIBUNAL","BRIGADE",
-               "(L')?(')?INTERIEUR","MUNICIP(AL)?(ALES)?(AUX)?","DEPARTEMENT(AL)?(ALES)?(AUX)?"," NATION(AL)?(ALES)?(AUX)?",
+               "PREFECT(URE)?(ORAL)?(ORAUX)?","RETRAITE",
+               "CLINIQUE","TRIBUNAL","BRIGADE",
+               "(L')?(')?INTERIEUR","MUNICIP(AL)?(ALES)?(AUX)?",
+               "DEPARTEMENT(AL)?(ALES)?(AUX)?"," NATION(AL)?(ALES)?(AUX)?",
                "ADMINISTRATION","ENSEIGNEMENT", "JUSTICE","SANTE"," COLLECTIVITE(S)?","TERRITORIA(L?)(UX?)(LES?)","EHPAD",
                "RECTORAT","INSPECTION","AMBULANCE","CHU","CHR","CASERNE")
 
@@ -63,9 +70,30 @@ df_rp2017 <- df_rp2017 %>%  filter(substr(ACTET_C,1,2) %in% c('84', '85', '86', 
                                    )
 ```
 
-**TO DO: METTRE BOUT DE CODE sirus_o_p_q**
+## Données `sirus`
 
-Ceci constitue notre échantillon de départ 
+Elles sont trop lourdes pour être importées directement dans `R`. Nous n'avons cependant pas besoin de celles-ci entières, uniquement des données renvoyant aux secteurs OPQ. Il s'agit donc de les importer pour ensuite les filtrer et les stocker (afin de ne pas alourdir le dossier, le résultat de ceci n'est pas fourni sur github. Dans notre dossier, on a stocké cela sous `sirus_o_p_q.csv` dans le même dossier que `script.R`)
+
+Deux solutions ont été trouvées pour malgré tout importer les données puis les filtrer. Elles sont inscrites dans le dossier `/Python and Spark`:
+
+* notebook `slice_sirus_PYTHON`: imports successifs de blocs de 100 000 lignes de données via `pandas` qui sont traités et écrits successivements
+* script pyspark `slice_sirus_SPARK`: utilisation d'un langage distribué pour filtrer les données
+
+Le notebook `slice_sirus_PYTHON` a mis environ une heure à tourner. il s'agit du script qui a généré le fichier que nous avons utilisé. Le script `spark` a été écrit *a posteriori*. L'ordre des lignes de nos données n'important pas, la transformation de ce code en permettant le `multithreading` (via `from multiprocessing.dummy import Pool as ThreadPool`) ne devrait pas être compliquée mais le rendre plus rapide. 
+
+Le script `spark` a été lancé via `spark-shell` sur un ordinateur disposant de 4 coeurs (sous `linux`). Pour exécuter directement le code (en modifiant la manière d'exporter les données, cf. ci-dessous), il suffit de lancer depuis un terminal de commande, en supposant que `cd` a été initialisé dans le dossier où se situe le document, 
+
+```{r, eval = F}
+# Si utilise **.write.format('com.databricks.spark.csv') dans code
+spark-submit --master local[*] --packages com.databricks:spark-csv_2.10:1.4.0 slice_sirus_SPARK.py
+
+# Sinon
+spark-submit --master local[*] slice_sirus_SPARK.py
+```
+
+Le script `spark` testé en shell a mis entre 3 et 5 minutes pour importer les données, filtrer et écrire le résultat en `snappy`. 
+
+La version de `Spark` utilisée pour le test est ancienne, version `1.6.0`. A partir de la version `2.0`, des méthodes plus simples d'export des données sont disponibles. Le script propose deux manières d'exporter les données (en snappy pour la première, en utilisant package externe pour la seconde). La première méthode est préférable si on dispose d'une infrastructure `HDFS`. 
 
 # Etape 1: Constitution de raisons sociales cohérentes
 
