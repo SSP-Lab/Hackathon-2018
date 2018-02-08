@@ -29,8 +29,8 @@ Ces documents ont une documentation `roxygen` pour aider à leur compréhension.
 
 Les fichiers `csv` ne sont pas importés dans le repo afin de ne pas surcharger l'espace de stockage. Le document `script.R` montre quel a été la ligne de code nécessaire pour importer ces fichiers mais ce markdown prend comme donnée l'importation des fichiers, peu importe le chemin.
 
-Sélection des individus potentiellement concernés par les secteurs O,P,Q
-========================================================================
+Etape 0: Sélection des individus potentiellement concernés par les secteurs O,P,Q
+=================================================================================
 
 On suppose que le dataframe `rp_final_2017.csv` est importé sous le nom `df_rp2017` (par example via `readr::read_csv2`). Pour sélectionner nos individus, on utilise des expressions régulières qui ressortent généralement chez les individus des catégories O,P,Q
 
@@ -43,12 +43,14 @@ df_rp2017 <- df_rp2017 %>%
          'SIRETC','SIRETM','qual','VARDOMPART_X','I_MCA_C')
 
 # LISTE DES PROFESSIONS ASSOCIEES A OPQ
-liste_opq <- c("POMPIERS(?)","MINISTERE","EDUCATION","LYCEE","ECOLE","CRECHE","GARDERIE","COLLEGE","UNIVERSIT(E|AIRE)",
-"PUBLI(QUE|C)S? ","HOPITA(L|UX)","AP(-)?(^)?HP","HOSPITALIER(S)?","POLICE","GENDARMERIE","FONCTIONNAIRE",
-"DEPARTEMENT(AL)?(AUX)?","MAIRIE", "PREFECT(URE)?(ORAL)?(ORAUX)?","RETRAITE","CLINIQUE","TRIBUNAL","BRIGADE",
-"(L')?(')?INTERIEUR","MUNICIP(AL)?(ALES)?(AUX)?","DEPARTEMENT(AL)?(ALES)?(AUX)?"," NATION(AL)?(ALES)?(AUX)?",
-"ADMINISTRATION","ENSEIGNEMENT", "JUSTICE","SANTE"," COLLECTIVITE(S)?","TERRITORIA(L?)(UX?)(LES?)","EHPAD",
-"RECTORAT","INSPECTION","AMBULANCE","CHU","CHR","CASERNE")
+liste_opq <- c("POMPIERS(?)","MINISTERE","EDUCATION","LYCEE","ECOLE",
+               "CRECHE","GARDERIE","COLLEGE","UNIVERSIT(E|AIRE)",
+               "PUBLI(QUE|C)S? ","HOPITA(L|UX)","AP(-)?(^)?HP","HOSPITALIER(S)?","POLICE",
+               "GENDARMERIE","FONCTIONNAIRE", "DEPARTEMENT(AL)?(AUX)?","MAIRIE",
+               "PREFECT(URE)?(ORAL)?(ORAUX)?","RETRAITE","CLINIQUE","TRIBUNAL","BRIGADE",
+               "(L')?(')?INTERIEUR","MUNICIP(AL)?(ALES)?(AUX)?","DEPARTEMENT(AL)?(ALES)?(AUX)?"," NATION(AL)?(ALES)?(AUX)?",
+               "ADMINISTRATION","ENSEIGNEMENT", "JUSTICE","SANTE"," COLLECTIVITE(S)?","TERRITORIA(L?)(UX?)(LES?)","EHPAD",
+               "RECTORAT","INSPECTION","AMBULANCE","CHU","CHR","CASERNE")
 
 
 # ON GARDE LES VARIABLES D'INTERET
@@ -58,11 +60,11 @@ df_rp2017 <- df_rp2017 %>%  filter(substr(ACTET_C,1,2) %in% c('84', '85', '86', 
                                    )
 ```
 
-\*\* TO DO: METTRE BOUT DE CODE sirus\_o\_p\_q \*\*
+**TO DO: METTRE BOUT DE CODE sirus\_o\_p\_q**
 
 Ceci constitue notre échantillon de départ
 
-ETAPE 1: CONSTITUTION DE RAISONS SOCIALES COHERENTES
+Etape 1: Constitution de raisons sociales cohérentes
 ====================================================
 
 Etape 1.1. Harmonisation de la raison sociale
@@ -128,8 +130,8 @@ df_rp2017$RS_X[
     ]
 ```
 
-Etape 2: appel de l'API Siret Addok (dérivée de la BAN)
-=======================================================
+Etape 2: Appel de l'`API Siret Addok`
+=====================================
 
 La première étape de la codification automatique consiste à appeler l'`API Siret Addok` issue de la BAN. Celle-ci a l'avantage d'offrir un moteur de recherche textuel qui nous permet d'envoyer des raisons sociales incomplètes ou imparfaites mais tout de même espérer un *match*.
 
@@ -143,14 +145,14 @@ cl <- parallel::makeCluster(parallel::detectCores()-1, outfile = "")
 doParallel::registerDoParallel(cl)
 
 # APPELS PARALLELISES DE LA FONCTION get.banAPI
-result <- foreach(i = 1:nrow(df.special), .combine = "list",
+result <- foreach(i = 1:nrow(df_rp2017), .combine = "list",
                   .multicombine = TRUE,
-                  .maxcombine = nrow(df.special),
+                  .maxcombine = nrow(df_rp2017),
                   .errorhandling = "pass", .export = 'get.banAPI',
                   .packages = c("jsonlite", "httr")) %dopar% {
                     return(
                       get.banAPI(
-                        paste0(df.special$RS_X,"&citycode=",df.special$CLT_C_C)[i], geo.place = T
+                        paste0(df_rp2017$RS_X,"&citycode=",df_rp2017$CLT_C_C)[i], geo.place = T
                       )$features[1,]$properties
                     )
                   }
@@ -193,7 +195,7 @@ df <- tbl_df(cbind(df_rp2017,df))
 
 La variable `siret` stocke le `siret` codifiés, la variable `siret.imput` stocke l'étape à laquelle le codage a un lieu
 
-Etape 3: distance textuelle
+Etape 3: Distance textuelle
 ===========================
 
 Ecrite mais non implémentée en pratique
@@ -276,8 +278,8 @@ siret_imp <- as.character(siret_imp)
 
 Nous avons remarqué un problème car cette méthode sort bien des SIRET mais le taux d'erreur de cette méthode est de 100%. Il y a probablement un problème dans la sortie des résultats mais nous n'avons pas eu le temps de vérifier la raison.
 
-Etape 4: Appels API Sirene
-==========================
+Etape 4: Appels `API Sirene`
+============================
 
 Théoriquement, cette méthode vient se greffer après l'étape de distance textuelle. Cependant, comme avions un problème sur la distance textuelle, nous avons mis cette méthode à la suite de l'appel à `Addok`.
 
@@ -321,8 +323,8 @@ df2$siret[is.na(df2$siret)] <- ifelse(!is.na(result$siren) & !is.na(result$siren
                                       paste0(result$siren,result$nic), df2$siret)
 ```
 
-Etape 5: Appels de l'API BAN
-============================
+Etape 5: Appels de l'`API BAN`
+==============================
 
 L'`API Sirene` permettait de rechercher les établissements en fonction d'une adresse. S'il n'y a pas de retour de celle-ci, peut-être que l'adresse pose problème. Pour corriger ce problème on peut faire des appels auprès de la BAN qui nous permet de chercher, malgré une adresse vague, une adresse plus propre, que l'on peut alors utiliser via l'API `Sirene` ou `Addok`. Nous avons testé cette méthode indépendamment des autres mais n'avons pas eu le temps de la mettre dans la continuité de l'étape précédente.
 
