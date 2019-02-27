@@ -1,6 +1,6 @@
 <h1>Hackathon-2018 : "Les champs de Sirene"</h1>
 
-<p>Ce hackathon est organisé les 18 et 19 janvier 2017 à l'ENSAE (Malakoff). Pour être prêt à démarrer au matin du hackathon, venez à l'une des journées de préparation des 27 novembre ou 4 décembre à l'ENSAE pour des présentations techniques et la mise en place des outils.</p>
+<p>Ce hackathon est organisé les 18 et 19 janvier 2018 à l'ENSAE (Malakoff). Pour être prêt à démarrer au matin du hackathon, venez à l'une des journées de préparation des 27 novembre ou 4 décembre à l'ENSAE pour des présentations techniques et la mise en place des outils.</p>
 
 
 <h2>Pour nous suivre </h2>
