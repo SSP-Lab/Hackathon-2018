@@ -20,7 +20,7 @@
  
 <h2>Comment est organisé ce Github :</h2>
 
-<p>Sur ce repo Github on trouvera documentation, codes, actualités pour le hackathon organisé les 18 et 19 janvier 2017 à l'ENSAE.</p>
+<p>Sur ce repo Github on trouvera documentation, codes, actualités pour le hackathon organisé les 18 et 19 janvier 2018 à l'ENSAE.</p>
 
 <p>Le fichier "description générale" présente les principales informations relatives à l'événement.</p>
 
